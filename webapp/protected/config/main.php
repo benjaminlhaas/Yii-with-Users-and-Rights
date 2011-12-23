@@ -36,7 +36,7 @@ return array(
 		
 		),
 		'rights'=>array(
-			'install'=>true,
+			//'install'=>true,
 		),
 	),
 
