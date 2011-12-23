@@ -57,8 +57,14 @@ test/
 	Yii-1.1.8/ [Yii framework files]
 	webapp/    [the web application files]
 
-(File Permissions Note: You may also have to adjust some directory permissions so that they are writable by the Web server process. 
-At a minimum, the webapp/assets/ and webapp/protected/runtime/ directories needs to be writable by your Web server process.)
+Create assets and runtime directory. From within application root, do the following:
+mkdir webapp/assets
+chmod 777 webapp/assets
+mkdir webapp/protected/runtime
+chmod 777 webapp/protected/runtime
+
+File Permissions Note: You may also have to adjust some other directory permissions so that they are writable by the Web server process. 
+At a minimum, the webapp/assets/ and webapp/protected/runtime/ directories needs to be writable by your Web server process.
 
 * Create a new database and mysql user account, and configure with appropriate permissions:
 CREATE DATABASE test;
