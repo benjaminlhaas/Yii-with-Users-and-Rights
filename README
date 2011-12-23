@@ -71,6 +71,8 @@ CREATE DATABASE test;
 CREATE USER 'test_dbuser'@'localhost' IDENTIFIED BY 'Password1';
 GRANT INSERT, SELECT, UPDATE, INDEX, DELETE, CREATE, DROP, ALTER, SHOW VIEW, CREATE VIEW ON test.* TO 'test_dbuser'@'localhost';
 
+* Update /webapp/protected/config/main.php with the newly created mysql database name and credentials
+
 * Run the data migration:
 From the Shell cd to /your/project/path/webapp
 % protected/yiic migrate
