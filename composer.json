@@ -1,0 +1,6 @@
+{
+    "name": "yii/yii-cg-install",
+    "require": {
+        "php": ">=5.3.0",
+    }
+}
