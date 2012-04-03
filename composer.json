@@ -1,3 +1,21 @@
 {
-    "name": "yii/yii-cg-install"    
+    "name": "cg/yii-base-build",
+    "description": "CG Yii Build",
+    "keywords": ["package", "dependency", "autoload"],
+    "homepage": "http://controlgroup.com/",
+    "type": "library",
+    "license": "BSD",
+    "config": {
+        "vendor-dir": "webapp/protected/extensions"
+    }, 
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "http://github.com/evan108108/UnitTestYiis.git"
+        }
+    ],
+     "require": {
+        "php": ">=5.3.0",
+        "cg/unit-test-yiis": "cg"
+    }
 }
