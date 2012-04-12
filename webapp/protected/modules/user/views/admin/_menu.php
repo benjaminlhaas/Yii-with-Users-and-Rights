@@ -1,11 +1,26 @@
-<ul class="actions">
+<br/>
 <?php 
-	if (count($list)) {
-		foreach ($list as $item)
-			echo "<li>".$item."</li>";
-	}
-?>
-	<li><?php echo CHtml::link(UserModule::t('List User'),array('/user')); ?></li>
-	<li><?php echo CHtml::link(UserModule::t('Manage User'),array('admin')); ?></li>
-	<li><?php echo CHtml::link(UserModule::t('Manage Profile Field'),array('profileField/admin')); ?></li>
-</ul><!-- actions -->
+if(UserModule::isAdmin()) {
+  $userList = array('label'=>'Manage User', 'url'=>Yii::app()->createUrl('user/admin'), 'active'=>true);
+} else {
+  $userList = array('label'=>'List User', 'url'=>Yii::app()->createUrl('user'), 'active'=>true);
+}
+$this->widget('bootstrap.widgets.BootMenu', array(
+  'type'=>'tabs', // '', 'tabs', 'pills' (or 'list')
+  'stacked'=>false, // whether this is a stacked menu
+  'items'=>array(
+      $userList,
+      array('label'=>'Profile', 'url'=>Yii::app()->createUrl('user/profile')),
+      array('label'=>'Edit', 'url'=>Yii::app()->createUrl('user/profile/edit')),
+      array('label'=>'Change Password', 'url'=>Yii::app()->createUrl('user/profile/changepassword')),
+      array('label'=>'logout', 'url'=>Yii::app()->createUrl('user/logout')),
+  ),
+)); ?>
+
+<?php if(isset($list)): $this->widget('bootstrap.widgets.BootMenu', array(
+  'type'=>'tabs', // '', 'tabs', 'pills' (or 'list')
+  'stacked'=>false, // whether this is a stacked menu
+  'items'=>$list,
+)); endif; ?>
+
+

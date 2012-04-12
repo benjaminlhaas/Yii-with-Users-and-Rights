@@ -1,8 +1,9 @@
-<?php $this->pageTitle=Yii::app()->name . ' - '.UserModule::t("Profile");
-$this->breadcrumbs=array(
-	UserModule::t("Profile"),
-);
-?><h2><?php echo UserModule::t('Your profile'); ?></h2>
+<?php $this->pageTitle=Yii::app()->name . ' - '.UserModule::t("Profile");?>
+
+<?php $this->breadcrumbs =  array(UserModule::t("Profile")); ?>
+
+<h2><?php echo UserModule::t('Your profile'); ?></h2>
+<br/>
 <?php echo $this->renderPartial('menu'); ?>
 
 <?php if(Yii::app()->user->hasFlash('profileMessage')): ?>
@@ -10,52 +11,26 @@ $this->breadcrumbs=array(
 <?php echo Yii::app()->user->getFlash('profileMessage'); ?>
 </div>
 <?php endif; ?>
-<table class="dataGrid">
-<tr>
-	<th class="label"><?php echo CHtml::encode($model->getAttributeLabel('username')); ?>
-</th>
-    <td><?php echo CHtml::encode($model->username); ?>
-</td>
-</tr>
+
 <?php 
-		$profileFields=ProfileField::model()->forOwner()->sort()->findAll();
-		if ($profileFields) {
-			foreach($profileFields as $field) {
-				//echo "<pre>"; print_r($profile); die();
-			?>
-<tr>
-	<th class="label"><?php echo CHtml::encode(UserModule::t($field->title)); ?>
-</th>
-    <td><?php echo (($field->widgetView($profile))?$field->widgetView($profile):CHtml::encode((($field->range)?Profile::range($field->range,$profile->getAttribute($field->varname)):$profile->getAttribute($field->varname)))); ?>
-</td>
-</tr>
-			<?php
-			}//$profile->getAttribute($field->varname)
-		}
+  $profileData = array();
+  $profileData[($model->getAttributeLabel('username'))] = $model->username;
+  $profileFields=ProfileField::model()->forOwner()->sort()->findAll();
+	if ($profileFields) {
+    foreach($profileFields as $field)
+      $profileData[($field->title)] = (($field->widgetView($profile))?$field->widgetView($profile):(($field->range)?Profile::range($field->range,$profile->getAttribute($field->varname)):$profile->getAttribute($field->varname)));
+  }
+  $profileData[($model->getAttributeLabel('email'))] = $model->email;
+  $profileData[($model->getAttributeLabel('createtime'))] = $model->createtime;
+  $profileData[($model->getAttributeLabel('lastvisit'))] = $model->lastvisit;
+  $profileData[(User::itemAlias("UserStatus",$model->status))] = $model->status;
+  
+  $profileKeys = array();
+  foreach($profileData as $key=>$value)
+    $profileKeys[] = array('name'=>$key, 'label'=>$key);
+
+  $this->widget('bootstrap.widgets.BootDetailView', array(
+    'data'=>$profileData,
+    'attributes'=>$profileKeys,
+  ));
 ?>
-<tr>
-	<th class="label"><?php echo CHtml::encode($model->getAttributeLabel('email')); ?>
-</th>
-    <td><?php echo CHtml::encode($model->email); ?>
-</td>
-</tr>
-<tr>
-	<th class="label"><?php echo CHtml::encode($model->getAttributeLabel('createtime')); ?>
-</th>
-    <td><?php echo date("d.m.Y H:i:s",$model->createtime); ?>
-</td>
-</tr>
-<tr>
-	<th class="label"><?php echo CHtml::encode($model->getAttributeLabel('lastvisit')); ?>
-</th>
-    <td><?php echo date("d.m.Y H:i:s",$model->lastvisit); ?>
-</td>
-</tr>
-<tr>
-	<th class="label"><?php echo CHtml::encode($model->getAttributeLabel('status')); ?>
-</th>
-    <td><?php echo CHtml::encode(User::itemAlias("UserStatus",$model->status));
-    ?>
-</td>
-</tr>
-</table>
