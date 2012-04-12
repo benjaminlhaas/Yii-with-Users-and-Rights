@@ -7,10 +7,10 @@
 // CWebApplication properties can be configured here.
 return array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
-	'name'=>'My Web Application',
+	'name'=>'Yii Bootstrap',
 
 	// preloading 'log' component
-	'preload'=>array('log'),
+	'preload'=>array('log', 'bootstrap'),
 
 	// autoloading model and component classes
 	'import'=>array(
@@ -19,15 +19,23 @@ return array(
 		'application.modules.user.models.*',
 		'application.modules.user.components.*',
 		'application.modules.right.*',
-		'application.modules.rights.components.*',
+    'application.modules.rights.components.*',
+    'application.tests.CrudUnit.*',
+    'ext.restfullyii.components.*',
+    'ext.wunit.*',
+    'ext.file.*',
 	),
 
 	'modules'=>array(
 		'gii'=>array(
 			'class'=>'system.gii.GiiModule',
-			'password'=>'Enter Your Password Here',
+			'password'=>'Password1',
 		 	// If removed, Gii defaults to localhost only. Edit carefully to taste.
-			'ipFilters'=>array('127.0.0.1','::1'),
+      'ipFilters'=>array('127.0.0.1','::1'),
+      'generatorPaths'=>array(
+          'bootstrap.gii', // since 0.9.1
+          'application.gii'
+        ),
 		),
 		'user'=>array(
 			'tableUsers' => 'users',
@@ -51,26 +59,26 @@ return array(
 		
 		'urlManager'=>array(
 			'urlFormat'=>'path',
-			'rules'=>array(
-				'<controller:\w+>/<id:\d+>'=>'<controller>/view',
-				'<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
-				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
-			),
+			'rules'=>require(dirname(__FILE__).'/routes.php'),
 		),
 
 		'authManager'=>array(
 			'class'=>'RDbAuthManager',
 			'connectionID'=>'db',
 			'defaultRoles'=>array('Authenticated', 'Guest'),
-		),
+    ),
+
+    'bootstrap'=>array(
+      'class'=>'ext.bootstrap.components.Bootstrap', // assuming you extracted bootstrap under extensions
+    ),
+    
+    'wunit' => array(
+      'class' => 'WUnit'
+    ),
 		
-		'db'=>array(
-			'connectionString' => 'mysql:host=localhost;dbname=test',
-			'emulatePrepare' => true,
-			'username' => 'test_dbuser',
-			'password' => 'Password1',
-			'charset' => 'utf8',
-		),
+		'db'=>require(dirname(__FILE__).'/db.php'),
+    'testdb'=>require(dirname(__FILE__).'/testdb.php'),
+
 		'errorHandler'=>array(
 			// use 'site/error' action to display errors
             'errorAction'=>'site/error',
@@ -94,8 +102,5 @@ return array(
 
 	// application-level parameters that can be accessed
 	// using Yii::app()->params['paramName']
-	'params'=>array(
-		// this is used in contact page
-		'adminEmail'=>'webmaster@example.com',
-	),
+	'params'=>require(dirname(__FILE__).'/params.php'),
 );

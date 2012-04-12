@@ -2,7 +2,10 @@
 
 class ProfileController extends Controller
 {
-	public $defaultAction = 'profile';
+  public $defaultAction = 'profile';
+  public $layout='//layouts/column1';
+
+  public $activePage = 'profile';
 
 	/**
 	 * @var CActiveRecord the currently loaded data model instance.
@@ -12,7 +15,8 @@ class ProfileController extends Controller
 	 * Shows a particular model.
 	 */
 	public function actionProfile()
-	{
+  {
+    $this->activePage = 'profile';
 		$model = $this->loadUser();
 	    $this->render('profile',array(
 	    	'model'=>$model,
@@ -26,7 +30,8 @@ class ProfileController extends Controller
 	 * If update is successful, the browser will be redirected to the 'view' page.
 	 */
 	public function actionEdit()
-	{
+  {
+    $this->activePage = 'edit';
 		$model = $this->loadUser();
 		$profile=$model->profile;
 		
@@ -59,7 +64,8 @@ class ProfileController extends Controller
 	/**
 	 * Change password
 	 */
-	public function actionChangepassword() {
+  public function actionChangepassword() {
+    $this->activePage = 'changepassword';
 		$model = new UserChangePassword;
 		if (Yii::app()->user->id) {
 			

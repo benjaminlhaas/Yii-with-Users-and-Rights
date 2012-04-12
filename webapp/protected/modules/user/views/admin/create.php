@@ -8,7 +8,7 @@ $this->breadcrumbs=array(
 
 <?php 
 	echo $this->renderPartial('_menu',array(
-		'list'=> array(),
+		'list'=> null,
 	));
 	echo $this->renderPartial('_form', array('model'=>$model,'profile'=>$profile));
 ?>

@@ -11,12 +11,12 @@
 /**
 * Default style.
 */
-
+/*
 #rights * { font-family:Trebuchet MS, Verdana, san-serif !important; }
 #rights a { color:#666699; font-weight:bold; text-decoration:none; }
 #rights a:hover { color:#666699; text-decoration:underline; }
 #rights hr { height:0; border-style:none; border-bottom:1px dashed #f0f0f0; }
-
+*/
 #rights #content { position:relative; }
 
 #rights #menu { margin:0 0 25px 0; }

@@ -1,0 +1,46 @@
+[
+    {
+        "name": "cg/unit-test-yiis",
+        "version": "dev-cg",
+        "version_normalized": "dev-cg",
+        "time": "2012-04-10 23:44:26",
+        "source": {
+            "type": "git",
+            "url": "http://github.com/evan108108/UnitTestYiis.git",
+            "reference": "1bd5a10cf341fd37515562a3896e33289b55ccab"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://github.com/evan108108/UnitTestYiis/zipball/1bd5a10cf341fd37515562a3896e33289b55ccab",
+            "reference": "1bd5a10cf341fd37515562a3896e33289b55ccab",
+            "shasum": ""
+        },
+        "type": "library",
+        "names": [
+            "cg/unit-test-yiis"
+        ],
+        "installation-source": "source"
+    },
+    {
+        "name": "cg/RESTFullYii",
+        "version": "dev-cg",
+        "version_normalized": "dev-cg",
+        "time": "2012-04-10 15:40:49",
+        "source": {
+            "type": "git",
+            "url": "http://github.com/evan108108/RESTFullYii.git",
+            "reference": "f132554a4bf2bae9af7151c130650936b2da0e9c"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://github.com/evan108108/RESTFullYii/zipball/f132554a4bf2bae9af7151c130650936b2da0e9c",
+            "reference": "f132554a4bf2bae9af7151c130650936b2da0e9c",
+            "shasum": ""
+        },
+        "type": "library",
+        "names": [
+            "cg/restfullyii"
+        ],
+        "installation-source": "source"
+    }
+]

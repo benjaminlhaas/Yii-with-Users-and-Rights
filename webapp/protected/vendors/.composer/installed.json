@@ -1,0 +1,106 @@
+[
+    {
+        "name": "cg/RESTFullYii",
+        "version": "dev-cg",
+        "version_normalized": "dev-cg",
+        "time": "2012-04-12 15:40:49",
+        "source": {
+            "type": "git",
+            "url": "http://github.com/evan108108/RESTFullYii.git",
+            "reference": "f132554a4bf2bae9af7151c130650936b2da0e9c"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://github.com/evan108108/RESTFullYii/zipball/f132554a4bf2bae9af7151c130650936b2da0e9c",
+            "reference": "f132554a4bf2bae9af7151c130650936b2da0e9c",
+            "shasum": ""
+        },
+        "type": "library",
+        "names": [
+            "cg/restfullyii"
+        ],
+        "installation-source": "source"
+    },
+    {
+        "name": "cg/unit-test-yiis",
+        "version": "dev-cg",
+        "version_normalized": "dev-cg",
+        "time": "2012-04-12 15:44:26",
+        "source": {
+            "type": "git",
+            "url": "http://github.com/evan108108/UnitTestYiis.git",
+            "reference": "1bd5a10cf341fd37515562a3896e33289b55ccab"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://github.com/evan108108/UnitTestYiis/zipball/1bd5a10cf341fd37515562a3896e33289b55ccab",
+            "reference": "1bd5a10cf341fd37515562a3896e33289b55ccab",
+            "shasum": ""
+        },
+        "type": "library",
+        "names": [
+            "cg/unit-test-yiis"
+        ],
+        "installation-source": "source"
+    },
+    {
+        "name": "idlesign/file",
+        "version": "master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "http://github.com/idlesign/ist-yii-cfile",
+            "reference": "origin/master"
+        },
+        "type": "library",
+        "names": [
+            "idlesign/file"
+        ],
+        "installation-source": "source"
+    },
+    {
+        "name": "crisu83/bootstrap",
+        "version": "master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "hg",
+            "url": "https://bitbucket.org/Crisu83/yii-bootstrap",
+            "reference": "tip"
+        },
+        "type": "library",
+        "names": [
+            "crisu83/bootstrap"
+        ],
+        "installation-source": "source"
+    },
+    {
+        "name": "generator4fixtures/gii",
+        "version": "master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "hg",
+            "url": "https://bitbucket.org/denis_medved/my-yii-extension",
+            "reference": "tip"
+        },
+        "type": "library",
+        "names": [
+            "generator4fixtures/gii"
+        ],
+        "installation-source": "source"
+    },
+    {
+        "name": "weavora/wunit",
+        "version": "master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/weavora/wunit.git",
+            "reference": "origin/master"
+        },
+        "type": "library",
+        "names": [
+            "weavora/wunit"
+        ],
+        "installation-source": "source"
+    }
+]

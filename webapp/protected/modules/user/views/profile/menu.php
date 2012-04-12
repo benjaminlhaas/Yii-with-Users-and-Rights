@@ -1,17 +1,18 @@
-<ul class="actions">
 <?php 
 if(UserModule::isAdmin()) {
-?>
-<li><?php echo CHtml::link(UserModule::t('Manage User'),array('/user/admin')); ?></li>
-<?php 
+  $userList = array('label'=>'Manage User', 'url'=>Yii::app()->createUrl('user/admin'));
 } else {
-?>
-<li><?php echo CHtml::link(UserModule::t('List User'),array('/user')); ?></li>
-<?php
+  $userList = array('label'=>'List User', 'url'=>Yii::app()->createUrl('user'));
 }
-?>
-<li><?php echo CHtml::link(UserModule::t('Profile'),array('/user/profile')); ?></li>
-<li><?php echo CHtml::link(UserModule::t('Edit'),array('edit')); ?></li>
-<li><?php echo CHtml::link(UserModule::t('Change password'),array('changepassword')); ?></li>
-<li><?php echo CHtml::link(UserModule::t('Logout'),array('/user/logout')); ?></li>
-</ul>
+$this->widget('bootstrap.widgets.BootMenu', array(
+  'type'=>'tabs', // '', 'tabs', 'pills' (or 'list')
+  'stacked'=>false, // whether this is a stacked menu
+  'items'=>array(
+      $userList,
+      array('label'=>'Profile', 'url'=>UserModule::t('Profile'), 'active'=>($this->activePage=='profile')?true:false),
+      array('label'=>'Edit', 'url'=>Yii::app()->createUrl('user/profile/edit'), 'active'=>($this->activePage=='edit')?true:false),
+      array('label'=>'Change Password', 'url'=>Yii::app()->createUrl('user/profile/changepassword'), 'active'=>($this->activePage=='changepassword')?true:false),
+      array('label'=>'logout', 'url'=>Yii::app()->createUrl('user/logout')),
+  ),
+)); ?>
+
