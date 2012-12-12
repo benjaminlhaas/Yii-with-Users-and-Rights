@@ -10,8 +10,8 @@ class m111222_183233_create_user_tables extends CDbMigration
 			'email'		=> 'varchar(128) NOT NULL',
 			'password'	=> 'varchar(128) NOT NULL',
 			'activkey'	=> 'varchar(128) NOT NULL DEFAULT ""',
-			'createtime'=> 'int(10) NOT NULL DEFAULT "0"',
-			'lastvisit'	=> 'int(10) NOT NULL DEFAULT "0"',
+			'create_at'	=> 'TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP',
+			'lastvisit_at' => 'TIMESTAMP NOT NULL DEFAULT "0000-00-00 00:00:00"',
 			'superuser'	=> 'int(1) NOT NULL DEFAULT "0"',
 			'status'	=> 'int(1) NOT NULL DEFAULT "0"',
 			'KEY status (status)',
@@ -26,26 +26,24 @@ class m111222_183233_create_user_tables extends CDbMigration
 		$command = $this->getDbConnection()->createCommand($sql);
 		$command->execute();	
 
-		$sql = "INSERT INTO users (`id`,`username`,`email`,`password`,`activkey`,`createtime`,`lastvisit`,`superuser`,`status`) VALUES (1,'admin','webmaster@example.com','21232f297a57a5a743894a0e4a801fc3','9a24eff8c15a6a141ece27eb6947da0f',1261146094,0,1,1)";
+		$sql = "INSERT INTO users 
+			(`id`,`username`,`email`,`password`,`activkey`,`superuser`,`status`) VALUES 
+			(1,'admin','webmaster@example.com','21232f297a57a5a743894a0e4a801fc3','9a24eff8c15a6a141ece27eb6947da0f',1,1),
+			(2,'demo','demo@example.com','fe01ce2a7fbac8fafaed7c982a04e229','099f825543f7850cc038b90aaff39fac',0,1)";
 		$command = $this->getDbConnection()->createCommand($sql);
 		$command->execute();
 
-		$sql = "INSERT INTO users (`id`,`username`,`email`,`password`,`activkey`,`createtime`,`lastvisit`,`superuser`,`status`) VALUES (2,'demo','demo@example.com','fe01ce2a7fbac8fafaed7c982a04e229','099f825543f7850cc038b90aaff39fac',1261146096,0,0,1)";
-		$command = $this->getDbConnection()->createCommand($sql);
-		$command->execute();
-		
 		$this->createTable('profiles', array(
 			'user_id'   => 'pk',
 			'lastname'  => 'varchar(50) NOT NULL DEFAULT ""',
 			'firstname' => 'varchar(50) NOT NULL DEFAULT ""',
-			'birthday'  => 'date NOT NULL DEFAULT "0000-00-00"',
+			'FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE',
 		), 'ENGINE=InnoDB DEFAULT CHARSET=utf8'); 
 
-		$sql = "INSERT INTO profiles (`user_id`,`lastname`,`firstname`,`birthday`) VALUES (1,'Admin','Administrator','0000-00-00')";
-		$command = $this->getDbConnection()->createCommand($sql);
-		$command->execute();
-		
-		$sql = "INSERT INTO profiles (`user_id`,`lastname`,`firstname`,`birthday`) VALUES (2,'Demo','Demo','0000-00-00')";
+		$sql = "INSERT INTO profiles 
+			(`user_id`,`lastname`,`firstname`) VALUES 
+			(1,'Admin','Administrator'),
+			(2,'Demo','Demo')";
 		$command = $this->getDbConnection()->createCommand($sql);
 		$command->execute();
 		
@@ -54,8 +52,8 @@ class m111222_183233_create_user_tables extends CDbMigration
 			'varname'         => 'varchar(50) NOT NULL',
 			'title'           => 'varchar(255) NOT NULL',
 			'field_type'      => 'varchar(50) NOT NULL',
-			'field_size'      => 'int(3) NOT NULL DEFAULT "0"',
-			'field_size_min'  => 'int(3) NOT NULL DEFAULT "0"',
+			'field_size'      => 'varchar(15) NOT NULL DEFAULT "0"',
+			'field_size_min'  => 'varchar(15) NOT NULL DEFAULT "0"',
 			'required'        => 'int(1) NOT NULL DEFAULT "0"',
 			'match'           => 'varchar(255) NOT NULL DEFAULT ""',
 			'range'           => 'varchar(255) NOT NULL DEFAULT ""',
@@ -67,27 +65,21 @@ class m111222_183233_create_user_tables extends CDbMigration
 			'position'        => 'int(3) NOT NULL DEFAULT "0"',
 			'visible'         => 'int(1) NOT NULL DEFAULT "0"',
 			'KEY varname (varname,widget,visible)',
-		), 'ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=4'); 
+		), 'ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=3'); 
 
-		$sql = "INSERT INTO profiles_fields (`id`,`varname`,`title`,`field_type`,`field_size`,`field_size_min`,`required`,`match`,`range`,`error_message`,`other_validator`,`default`,`widget`,`widgetparams`,`position`,`visible`) VALUES (1,'lastname','Last Name','VARCHAR',50,3,1,'','','Incorrect Last Name (length between 3 and 50 characters).','','','','',1,3)";
+		$sql = "INSERT INTO profiles_fields 
+			(`id`,`varname`,`title`,`field_type`,`field_size`,`field_size_min`,`required`,`match`,`range`,`error_message`,`other_validator`,`default`,`widget`,`widgetparams`,`position`,`visible`) VALUES 
+			(1,'lastname','Last Name','VARCHAR',50,3,1,'','','Incorrect Last Name (length between 3 and 50 characters).','','','','',1,3),
+			(2,'firstname','First Name','VARCHAR',50,3,1,'','','Incorrect First Name (length between 3 and 50 characters).','','','','',0,3)";
 		$command = $this->getDbConnection()->createCommand($sql);
 		$command->execute();
-		
-		$sql = "INSERT INTO profiles_fields (`id`,`varname`,`title`,`field_type`,`field_size`,`field_size_min`,`required`,`match`,`range`,`error_message`,`other_validator`,`default`,`widget`,`widgetparams`,`position`,`visible`) VALUES (2,'firstname','First Name','VARCHAR',50,3,1,'','','Incorrect First Name (length between 3 and 50 characters).','','','','',0,3)";
-		$command = $this->getDbConnection()->createCommand($sql);
-		$command->execute();
-		
-		$sql = "INSERT INTO profiles_fields (`id`,`varname`,`title`,`field_type`,`field_size`,`field_size_min`,`required`,`match`,`range`,`error_message`,`other_validator`,`default`,`widget`,`widgetparams`,`position`,`visible`) VALUES (3,'birthday','Birthday','DATE',0,0,2,'','','','','0000-00-00','UWjuidate','{\"ui-theme\":\"redmond\"}',3,2)";
-		$command = $this->getDbConnection()->createCommand($sql);
-		$command->execute();
-
 	}
 
 	public function down()
 	{
-		$this->dropTable('users');
-		$this->dropTable('profiles');
 		$this->dropTable('profiles_fields');
+		$this->dropTable('profiles');
+		$this->dropTable('users');
 	}
 
 	/*

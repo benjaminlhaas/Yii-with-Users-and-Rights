@@ -13,18 +13,14 @@ class m111222_203126_create_rbac_tables extends CDbMigration
 			'PRIMARY KEY (name)',
 		), 'ENGINE=InnoDB DEFAULT CHARSET=utf8'); 
 
-		$sql = "INSERT INTO AuthItem (`name`,`type`,`description`,`bizrule`,`data`) VALUES ('Admin',2,NULL,NULL,'N;')";
+		$sql = "INSERT INTO AuthItem 
+			(`name`,`type`,`description`,`bizrule`,`data`) VALUES 
+			('Admin',2,NULL,NULL,'N;'),
+			('Authenticated',2,NULL,NULL,'N;'),
+			('Guest',2,NULL,NULL,'N;')";
 		$command = $this->getDbConnection()->createCommand($sql);
 		$command->execute();
-		
-		$sql = "INSERT INTO AuthItem (`name`,`type`,`description`,`bizrule`,`data`) VALUES ('Authenticated',2,NULL,NULL,'N;')";
-		$command = $this->getDbConnection()->createCommand($sql);
-		$command->execute();
-		
-		$sql = "INSERT INTO AuthItem (`name`,`type`,`description`,`bizrule`,`data`) VALUES ('Guest',2,NULL,NULL,'N;')";
-		$command = $this->getDbConnection()->createCommand($sql);
-		$command->execute();
-		
+
 		$this->createTable('AuthItemChild', array(
 			'parent' => 'varchar(64) NOT NULL',
 			'child' => 'varchar(64) NOT NULL',
