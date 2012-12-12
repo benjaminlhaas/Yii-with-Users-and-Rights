@@ -3,9 +3,9 @@
  * Yii-User module
  * 
  * @author Mikhail Mangushev <mishamx@gmail.com> 
- * @link http://yii-user.googlecode.com/
+ * @link http://yii-user.2mx.org/
  * @license http://www.opensource.org/licenses/bsd-license.php
- * @version $Id: UserModule.php 105 2011-02-16 13:05:56Z mishamx $
+ * @version $Id: UserModule.php 132 2011-10-30 10:45:01Z mishamx $
  */
 
 class UserModule extends CWebModule
@@ -60,6 +60,13 @@ class UserModule extends CWebModule
 	public $returnUrl = array("/user/profile");
 	public $returnLogoutUrl = array("/user/login");
 	
+	
+	/**
+	 * @var int
+	 * @desc Remember Me Time (seconds), defalt = 2592000 (30 days)
+	 */
+	public $rememberMeTime = 2592000; // 30 days
+	
 	public $fieldsMessage = '';
 	
 	/**
@@ -88,8 +95,14 @@ class UserModule extends CWebModule
 	public $tableUsers = '{{users}}';
 	public $tableProfiles = '{{profiles}}';
 	public $tableProfileFields = '{{profiles_fields}}';
+
+    public $defaultScope = array(
+            'with'=>array('profile'),
+    );
 	
 	static private $_user;
+	static private $_users=array();
+	static private $_userByName=array();
 	static private $_admin;
 	static private $_admins;
 	
@@ -138,7 +151,10 @@ class UserModule extends CWebModule
 	 * @return string
 	 */
 	public static function t($str='',$params=array(),$dic='user') {
-		return Yii::t("UserModule.".$dic, $str, $params);
+		if (Yii::t("UserModule", $str)==$str)
+		    return Yii::t("UserModule.".$dic, $str, $params);
+        else
+            return Yii::t("UserModule", $str, $params);
 	}
 	
 	/**
@@ -194,7 +210,7 @@ class UserModule extends CWebModule
 			$return_name = array();
 			foreach ($admins as $admin)
 				array_push($return_name,$admin->username);
-			self::$_admins = $return_name;
+			self::$_admins = ($return_name)?$return_name:array('');
 		}
 		return self::$_admins;
 	}
@@ -215,18 +231,26 @@ class UserModule extends CWebModule
 	 * @param user id not required
 	 * @return user object or false
 	 */
-	public static function user($id=0) {
-		if ($id) 
-			return User::model()->active()->findbyPk($id);
-		else {
-			if(Yii::app()->user->isGuest) {
-				return false;
-			} else {
-				if (!self::$_user)
-					self::$_user = User::model()->active()->findbyPk(Yii::app()->user->id);
-				return self::$_user;
-			}
+	public static function user($id=0,$clearCache=false) {
+        if (!$id&&!Yii::app()->user->isGuest)
+            $id = Yii::app()->user->id;
+		if ($id) {
+            if (!isset(self::$_users[$id])||$clearCache)
+                self::$_users[$id] = User::model()->with(array('profile'))->findbyPk($id);
+			return self::$_users[$id];
+        } else return false;
+	}
+	
+	/**
+	 * Return safe user data.
+	 * @param user name
+	 * @return user object or false
+	 */
+	public static function getUserByName($username) {
+		if (!isset(self::$_userByName[$username])) {
+			$_userByName[$username] = User::model()->findByAttributes(array('username'=>$username));
 		}
+		return $_userByName[$username];
 	}
 	
 	/**

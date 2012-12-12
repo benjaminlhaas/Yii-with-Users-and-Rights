@@ -4,14 +4,12 @@ class RegistrationController extends Controller
 {
 	public $defaultAction = 'registration';
 	
-
-
 	/**
 	 * Declares class-based actions.
 	 */
 	public function actions()
 	{
-		return (isset($_POST['ajax']) && $_POST['ajax']==='registration-form')?array():array(
+		return array(
 			'captcha'=>array(
 				'class'=>'CCaptchaAction',
 				'backColor'=>0xFFFFFF,
@@ -45,8 +43,6 @@ class RegistrationController extends Controller
 						$model->activkey=UserModule::encrypting(microtime().$model->password);
 						$model->password=UserModule::encrypting($model->password);
 						$model->verifyPassword=UserModule::encrypting($model->verifyPassword);
-						$model->createtime=time();
-						$model->lastvisit=((Yii::app()->controller->module->loginNotActiv||(Yii::app()->controller->module->activeAfterRegister&&Yii::app()->controller->module->sendActivationMail==false))&&Yii::app()->controller->module->autoLogin)?time():0;
 						$model->superuser=0;
 						$model->status=((Yii::app()->controller->module->activeAfterRegister)?User::STATUS_ACTIVE:User::STATUS_NOACTIVE);
 						
