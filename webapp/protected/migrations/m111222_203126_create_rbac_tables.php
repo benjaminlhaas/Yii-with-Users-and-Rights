@@ -59,8 +59,8 @@ class m111222_203126_create_rbac_tables extends CDbMigration
 	{
 		$this->dropTable('AuthAssignment');
 		$this->dropTable('AuthItemChild');
-		$this->dropTable('AuthItem');
 		$this->dropTable('Rights');
+		$this->dropTable('AuthItem');
 	}
 
 	/*
